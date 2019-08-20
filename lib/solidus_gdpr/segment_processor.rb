@@ -9,14 +9,6 @@ module SegmentProcessor
     @user = user
   end
 
-  def run
-    fail NotImplementedError
-  end
-
-  def rollback
-    fail NotImplementedError
-  end
-
   private
 
   def with_each_segment

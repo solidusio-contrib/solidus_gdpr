@@ -2,12 +2,18 @@
 
 module SolidusGdpr
   class DataExporter
-    include SegmentProcessor
+    attr_reader :user
+
+    def initialize(user)
+      @user = user
+    end
 
     def run
-      Hash[with_each_segment.map do |key, segment|
-        [key, segment.export]
-      end]
+      segments, files = PrepareFiles.new(user).call
+      archive_path = AssembleArchive.new(user, files: files).call
+      SendArchive.new(user, archive_path: archive_path).call
+
+      segments
     end
   end
 end
