@@ -5,3 +5,14 @@ require: rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 2.5
+  Exclude:
+    - spec/dummy/**/*
+
+RSpec/ExampleLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Layout/IndentFirstArgument:
+  EnforcedStyle: consistent

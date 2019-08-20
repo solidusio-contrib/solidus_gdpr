@@ -133,7 +133,7 @@ Users can also request that you retain their data, but stop any further processi
 many things, including but not limited to moving the data to cold storage, exclude the data from
 any statistical analysis etc.
 
-solidus_gdpr provides a `DataRestrictor` service that will call the `#stop_processing` method on
+solidus_gdpr provides a `DataRestrictor` service that will call the `#restrict_processing` method on
 all data segments. Because data processing can potentially be reverted, you also have a `#rollback`
 method that will call the `#resume_processing` method on all data segments.
 
@@ -142,13 +142,13 @@ You can use the service like this:
 ```ruby
 restrictor = SolidusGdpr::DataRestrictor.new(user)
 
-restrictor.stop_processing # => ['profile', 'orders']
-restrictor.resume_processing # => ['profile', 'orders']
+restrictor.run # => ['profile', 'orders']
+restrictor.rollback # => ['profile', 'orders']
 ```
 
 By default, `ProfileSegment` will set the `data_processable` attribute on the `Spree::User` record
-to, respectively, `false` and `true` when `#stop_processing` and `#resume_processing` are called.
-Note that you most likely won't need to implement `#stop_processing` and `#resume_processing` on
+to, respectively, `false` and `true` when `#restrict_processing` and `#resume_processing` are called.
+Note that you most likely won't need to implement `#restrict_processing` and `#resume_processing` on
 all data segments: simply setting an attribute on the user record, and potentially notifying
 third-parties, should be enough.
 
