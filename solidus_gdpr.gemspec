@@ -23,11 +23,11 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'ffaker'
+  s.add_development_dependency 'pg'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'rubocop', '~> 0.74.0'
   s.add_development_dependency 'rubocop-rspec', '~> 1.35'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'simplecov'
-  s.add_development_dependency 'sqlite3'
 end
