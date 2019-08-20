@@ -164,7 +164,7 @@ directly to this area by creating `Spree::GdprRequest` records:
 ```ruby
 request = Spree::GdprRequest.create!(
   intent: 'data_export', # ['data_export', 'data_erasure', 'processing_restriction']
-  user_data: { 'id' => 1 },
+  user: current_spree_user,
   notes: 'Any additional information here',
 )
 ```
@@ -174,7 +174,7 @@ This could be done, for instance, in a controller attached to a self-serve form:
 ```ruby
 class GdprRequestsController < ApplicationController
   def create
-    request = Spree::GdprRequest.create!(params)
+    request = Spree::GdprRequest.create!(gdpr_request_params.merge(user: current_spree_user))
     request.serve # this will run the appropriate workflow and mark the requested as served
 
     redirect_to root_path, notice: 'Your request will be processed shortly.'

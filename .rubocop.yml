@@ -16,3 +16,9 @@ Metrics/BlockLength:
 
 Layout/IndentFirstArgument:
   EnforcedStyle: consistent
+
+Layout/CaseIndentation:
+  EnforcedStyle: end
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: start_of_line

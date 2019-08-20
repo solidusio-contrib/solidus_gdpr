@@ -3,6 +3,18 @@
 require 'spec_helper'
 
 RSpec.describe Spree::User do
+  subject(:user) { create(:user) }
+
+  describe '#gdpr_requests' do
+    let!(:gdpr_request) { create(:gdpr_request, user: user) }
+
+    before { create(:gdpr_request) }
+
+    it "returns the user's GDPR requests" do
+      expect(user.gdpr_requests).to eq([gdpr_request])
+    end
+  end
+
   describe '.data_processable' do
     let!(:data_processable_user) { create(:user) }
 
