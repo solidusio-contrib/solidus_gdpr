@@ -7,38 +7,37 @@ RSpec.describe SolidusGdpr::DataExporter do
 
   let(:user) { build_stubbed(:user) }
 
-  let(:profile_segment) do
-    instance_double('SolidusGdpr::DataSegments::ProfileSegment', export: {
-                      'foo' => 'bar',
-                    })
-  end
-
-  let(:orders_segment) do
-    instance_double('SolidusGdpr::DataSegments::OrdersSegment', export: [
-                      { 'foo' => 'bar' },
-                    ])
-  end
-
-  before do
-    allow(SolidusGdpr::DataSegments::ProfileSegment).to receive(:new)
-      .with(user)
-      .and_return(profile_segment)
-
-    allow(SolidusGdpr::DataSegments::OrdersSegment).to receive(:new)
-      .with(user)
-      .and_return(orders_segment)
-  end
-
   describe '#run' do
-    it 'exports each data segment' do
-      expect(data_exporter.run).to eq(
-        'profile' => {
-          'foo' => 'bar',
-        },
-        'orders' => [
-          { 'foo' => 'bar' },
-        ],
+    it 'assembles and sends the export to the user' do
+      segments = %w[profile orders]
+      files = { 'profile.json' => 'profile export', 'orders.json' => 'orders export' }
+      archive_path = 'archive-path'
+
+      prepare_files = instance_double(
+        'SolidusGdpr::DataExporter::PrepareFiles',
+        call: [segments, files],
       )
+      assemble_archive = instance_double(
+        'SolidusGdpr::DataExporter::AssembleArchive',
+        call: archive_path,
+      )
+      send_archive = instance_spy('SolidusGdpr::DataExporter::SendArchive')
+
+      allow(SolidusGdpr::DataExporter::PrepareFiles).to receive(:new)
+        .with(user)
+        .and_return(prepare_files)
+
+      allow(SolidusGdpr::DataExporter::AssembleArchive).to receive(:new)
+        .with(user, files: files)
+        .and_return(assemble_archive)
+
+      allow(SolidusGdpr::DataExporter::SendArchive).to receive(:new)
+        .with(user, archive_path: archive_path)
+        .and_return(send_archive)
+
+      data_exporter.run
+
+      expect(send_archive).to have_received(:call)
     end
   end
 end
