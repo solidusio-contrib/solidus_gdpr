@@ -26,6 +26,10 @@ module SolidusGdpr
     end
 
     # Yields the configuration object.
+    #
+    # @yield [configuration] passes the configuration to the block
+    #
+    # @yieldparam [Configuration] configuration the configuration object
     def configure
       yield configuration
     end

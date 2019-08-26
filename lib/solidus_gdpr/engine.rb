@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module SolidusGdpr
+  # @api private
   class Engine < Rails::Engine
     require 'spree/core'
     isolate_namespace Spree

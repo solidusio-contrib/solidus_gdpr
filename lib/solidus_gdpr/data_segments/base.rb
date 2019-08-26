@@ -2,6 +2,18 @@
 
 module SolidusGdpr
   module DataSegments
+    # An abstract class for defining data segments.
+    #
+    # A data segment is the representation of a group of data the application holds about a user.
+    # For instance, you might have a data segment for basic information about a user's profile,
+    # another one for information about their orders etc.
+    #
+    # Data segments encapsulate the business logic required to operate on the data and fulfill any
+    # GDPR-related requests.
+    #
+    # @abstract To create a data segment, subclass +Base+ and override methods as needed. All of
+    #   the overrides are optional and raising +NotImplementedError+ will simply cause the segment
+    #   to be ignored when fulfilling GDPR requests.
     class Base
       # @!attribute [r] user
       #   @return [Spree::User]
