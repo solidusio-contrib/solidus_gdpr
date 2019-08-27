@@ -6,12 +6,16 @@ RSpec.describe SolidusGdpr::DataSegments::ProfileSegment do
   subject(:segment) { described_class.new(user) }
 
   describe '#export' do
-    let(:user) { build_stubbed(:user) }
+    let(:user) { create(:user) }
+
+    before do
+      allow(SolidusGdpr::Serializers::ProfileSerializer).to receive(:serialize)
+        .with(user)
+        .and_return(foo: 'bar')
+    end
 
     it "exports the user's profile" do
-      expect(segment.export).to match(a_hash_including(
-        'email' => user.email,
-      ))
+      expect(segment.export).to eq(foo: 'bar')
     end
   end
 

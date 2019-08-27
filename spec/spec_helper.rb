@@ -20,6 +20,7 @@ require File.expand_path('dummy/config/environment.rb', __dir__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
+require 'rspec/snapshot'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -34,6 +35,20 @@ require 'spree/testing_support/url_helpers'
 
 # Requires factories defined in lib/solidus_gdpr/factories.rb
 require 'solidus_gdpr/factories'
+
+module SerializerHelpers
+  def prepare_for_snapshot(serializer)
+    nullify_values(serializer.as_json).to_json
+  end
+
+  def nullify_values(object)
+    if object.is_a?(Hash)
+      object.transform_values(&method(__method__))
+    elsif object.is_a?(Array)
+      object.map(&method(__method__))
+    end
+  end
+end
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -86,4 +101,8 @@ RSpec.configure do |config|
 
   config.fail_fast = ENV['FAIL_FAST'] || false
   config.order = 'random'
+
+  config.snapshot_dir = 'spec/snapshots'
+
+  config.include SerializerHelpers
 end

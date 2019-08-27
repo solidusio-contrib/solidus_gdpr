@@ -27,6 +27,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'pg'
   s.add_development_dependency 'poltergeist'
   s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rspec-snapshot', '~> 0.1.2'
   s.add_development_dependency 'rubocop', '~> 0.74.0'
   s.add_development_dependency 'rubocop-rspec', '~> 1.35'
   s.add_development_dependency 'sass-rails'

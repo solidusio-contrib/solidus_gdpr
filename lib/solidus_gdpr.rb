@@ -15,6 +15,9 @@ require 'solidus_gdpr/data_exporter'
 require 'solidus_gdpr/data_exporter/prepare_files'
 require 'solidus_gdpr/data_exporter/assemble_archive'
 require 'solidus_gdpr/data_exporter/send_archive'
+require 'solidus_gdpr/serializers/base_serializer'
+require 'solidus_gdpr/serializers/address_serializer'
+require 'solidus_gdpr/serializers/profile_serializer'
 
 module SolidusGdpr
   class << self
