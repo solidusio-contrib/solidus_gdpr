@@ -5,20 +5,19 @@ require 'spec_helper'
 RSpec.describe SolidusGdpr::DataSegments::OrdersSegment do
   subject(:segment) { described_class.new(user) }
 
-  let(:user) { build_stubbed(:user) }
+  let(:user) { create(:user) }
 
   describe '#export' do
-    let(:order) { build_stubbed(:order) }
+    let!(:order) { create(:order, user: user) }
 
     before do
-      allow(user).to receive(:orders)
-        .and_return([order])
+      allow(SolidusGdpr::Serializers::OrderSerializer).to receive(:serialize)
+        .with(order)
+        .and_return(foo: 'bar')
     end
 
     it "exports the user's orders" do
-      expect(segment.export).to match_array([a_hash_including(
-        'number' => order.number,
-      )])
+      expect(segment.export).to eq([foo: 'bar'])
     end
   end
 
