@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rubyzip', '~> 1.2'
   s.add_dependency 'solidus_core', '~> 2.0'
+  s.add_dependency 'zeitwerk', '~> 2.1'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'coffee-rails'
