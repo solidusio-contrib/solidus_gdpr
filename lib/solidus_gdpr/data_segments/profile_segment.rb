@@ -8,7 +8,7 @@ module SolidusGdpr
       #
       # @return [Hash]
       def export
-        Serializers::ProfileSerializer.serialize(user)
+        serialize(user, with: :profile)
       end
 
       # Erases the data segment.

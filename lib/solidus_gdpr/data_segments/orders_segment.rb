@@ -18,7 +18,7 @@ module SolidusGdpr
       #
       # @return [Array<Hash>]
       def export
-        user.orders.includes(*INCLUDES).map(&Serializers::OrderSerializer.method(:serialize))
+        serialize(user.orders.includes(*INCLUDES), with: :order)
       end
     end
   end

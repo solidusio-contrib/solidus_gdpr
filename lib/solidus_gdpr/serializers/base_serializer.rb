@@ -4,6 +4,8 @@ module SolidusGdpr
   module Serializers
     # @api private
     class BaseSerializer
+      include SerializerAware
+
       attr_reader :object
 
       class << self

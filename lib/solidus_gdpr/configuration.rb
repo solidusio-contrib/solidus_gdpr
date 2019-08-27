@@ -14,6 +14,21 @@ module SolidusGdpr
       }
     end
 
+    # Returns the serializers that will be used by the data segments and other serializers.
+    #
+    # Valid keys are +:address+, +:line_item+, +:order+, +:profile+ and +:shipment+.
+    #
+    # @return [Hash<String => Class>] the serializers to use
+    def serializers
+      {
+        address: Serializers::AddressSerializer,
+        line_item: Serializers::LineItemSerializer,
+        order: Serializers::OrderSerializer,
+        profile: Serializers::ProfileSerializer,
+        shipment: Serializers::ShipmentSerializer,
+      }
+    end
+
     def exports_mailer_class
       @exports_mailer_class ||= 'Spree::GdprExportsMailer'
     end

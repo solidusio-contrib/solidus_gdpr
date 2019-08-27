@@ -15,6 +15,8 @@ module SolidusGdpr
     #   the overrides are optional and raising +NotImplementedError+ will simply cause the segment
     #   to be ignored when fulfilling GDPR requests.
     class Base
+      include SerializerAware
+
       # @!attribute [r] user
       #   @return [Spree::User]
       attr_reader :user

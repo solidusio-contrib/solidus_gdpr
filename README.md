@@ -97,6 +97,28 @@ When building the data export, solidus_gdpr will use the segment's name as the n
 file, so in this case the final data export would contain three files: `profile.json`, `orders.json`
 and `reviews.json`.
 
+##### Configuring serializers
+
+solidus_gdpr has a very basic built-in serializer framework. These serializers are used to convert
+ActiveRecord objects or other data structures to JSON for GDPR data exports.
+
+You can extend and/or override the serializers via the `serializers` configuration option:
+
+```ruby
+# config/initializers/solidus_gdpr.rb
+SolidusGdpr.configure do |config|
+  # Valid keys are address, line_item, order, profile, shipment
+  config.serializers[:profile] = GdprProfileSerializer 
+end
+
+# app/serializers/custom_profile_serializer.rb
+class GdprProfileSerializer < SolidusGdpr::Serializers::ProfileSerializer
+  def as_json(*)
+    super.merge(middlename: object.middlename)
+  end
+end
+```
+
 #### Data erasure
 
 Another request that can be handled automatically by solidus_gdpr is the right to erasure.

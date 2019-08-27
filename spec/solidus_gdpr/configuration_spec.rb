@@ -7,10 +7,21 @@ RSpec.describe SolidusGdpr::Configuration do
 
   describe '#segments' do
     it 'returns the Solidus segments' do
-      expect(configuration.segments).to eq(
-        'profile' => SolidusGdpr::DataSegments::ProfileSegment,
-        'orders' => SolidusGdpr::DataSegments::OrdersSegment,
-      )
+      expected_keys = %w[profile orders]
+
+      expect(configuration.segments).to match(Hash[expected_keys.map do |key|
+        [key, an_instance_of(Class)]
+      end])
+    end
+  end
+
+  describe '#serializers' do
+    it 'returns the serializer classes' do
+      expected_keys = %i[address line_item order profile shipment]
+
+      expect(configuration.serializers).to match(Hash[expected_keys.map do |key|
+        [key, an_instance_of(Class)]
+      end])
     end
   end
 end

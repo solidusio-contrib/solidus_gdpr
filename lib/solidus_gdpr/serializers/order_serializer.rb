@@ -12,8 +12,8 @@ module SolidusGdpr
           adjustment_total: object.adjustment_total,
           user_id: object.user_id,
           completed_at: object.completed_at,
-          bill_address: AddressSerializer.serialize(object.bill_address),
-          ship_address: AddressSerializer.serialize(object.ship_address),
+          bill_address: serialize(object.bill_address, with: :address),
+          ship_address: serialize(object.ship_address, with: :address),
           payment_total: object.payment_total,
           email: object.email,
           special_instructions: object.special_instructions,
@@ -23,8 +23,8 @@ module SolidusGdpr
           promo_total: object.promo_total,
           included_tax_total: object.included_tax_total,
           item_count: object.item_count,
-          line_items: object.line_items.map(&LineItemSerializer.method(:serialize)),
-          shipments: object.shipments.map(&ShipmentSerializer.method(:serialize)),
+          line_items: serialize(object.line_items, with: :line_item),
+          shipments: serialize(object.shipments, with: :shipment),
         }
       end
     end

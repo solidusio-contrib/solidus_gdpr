@@ -18,8 +18,8 @@ module SolidusGdpr
           updated_at: object.updated_at,
           confirmed_at: object.confirmed_at,
           data_processable: object.data_processable,
-          ship_address: AddressSerializer.serialize(object.ship_address),
-          bill_address: AddressSerializer.serialize(object.bill_address),
+          ship_address: serialize(object.ship_address, with: :address),
+          bill_address: serialize(object.bill_address, with: :address),
         }
       end
     end
