@@ -111,7 +111,7 @@ SolidusGdpr.configure do |config|
   config.serializers[:profile] = GdprProfileSerializer 
 end
 
-# app/serializers/custom_profile_serializer.rb
+# app/serializers/gdpr_profile_serializer.rb
 class GdprProfileSerializer < SolidusGdpr::Serializers::ProfileSerializer
   def as_json(*)
     super.merge(middlename: object.middlename)
