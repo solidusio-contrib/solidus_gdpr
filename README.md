@@ -99,8 +99,8 @@ and `reviews.json`.
 
 ##### Configuring serializers
 
-solidus_gdpr has a very basic built-in serializer framework. These serializers are used to convert
-ActiveRecord objects or other data structures to JSON for GDPR data exports.
+solidus_gdpr has a very basic built-in serialization framework. These serializers are used to
+convert ActiveRecord objects or other data structures to JSON for GDPR data exports.
 
 You can extend and/or override the serializers via the `serializers` configuration option:
 
