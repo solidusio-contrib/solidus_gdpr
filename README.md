@@ -197,7 +197,7 @@ This could be done, for instance, in a controller attached to a self-serve form:
 class GdprRequestsController < ApplicationController
   def create
     request = Spree::GdprRequest.create!(gdpr_request_params.merge(user: current_spree_user))
-    request.serve # this will run the appropriate workflow and mark the requested as served
+    request.serve # this will run the appropriate workflow and mark the request as served
 
     redirect_to root_path, notice: 'Your request will be processed shortly.'
   end
