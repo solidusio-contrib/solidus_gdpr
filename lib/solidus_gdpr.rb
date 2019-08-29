@@ -4,12 +4,11 @@ require 'solidus_core'
 require 'zeitwerk'
 require 'zip'
 
-Zeitwerk::Loader.for_gem.tap do |loader|
+loader = Zeitwerk::Loader.for_gem.tap do |loader|
   loader.ignore("#{__dir__}/solidus_gdpr/factories.rb")
   loader.ignore("#{__dir__}/generators")
 
   loader.setup
-  loader.eager_load
 end
 
 module SolidusGdpr
@@ -31,3 +30,5 @@ module SolidusGdpr
     end
   end
 end
+
+loader.eager_load
