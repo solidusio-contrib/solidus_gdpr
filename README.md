@@ -51,7 +51,7 @@ Once the segment has been defined, you need to add it to your configuration:
 ```ruby
 # config/initializers/solidus_gdpr.rb
 SolidusGdpr.configure do |config|
-  config.segments['reviews'] = ReviewsSegment
+  config.segments[:reviews] = ReviewsSegment
 end
 ```
 

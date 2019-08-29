@@ -7,7 +7,7 @@ RSpec.describe SolidusGdpr::Configuration do
 
   describe '#segments' do
     it 'returns the Solidus segments' do
-      expected_keys = %w[profile orders]
+      expected_keys = %i[profile orders]
 
       expect(configuration.segments).to match(Hash[expected_keys.map do |key|
         [key, an_instance_of(Class)]

@@ -9,8 +9,8 @@ module SolidusGdpr
     # @return [Hash{String->Class}] a name-to-class mapping of data segments
     def segments
       @segments ||= {
-        'profile' => DataSegments::ProfileSegment,
-        'orders' => DataSegments::OrdersSegment,
+        profile: DataSegments::ProfileSegment,
+        orders: DataSegments::OrdersSegment,
       }
     end
 

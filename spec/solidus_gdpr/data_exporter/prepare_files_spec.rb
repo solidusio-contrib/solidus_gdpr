@@ -32,7 +32,7 @@ RSpec.describe SolidusGdpr::DataExporter::PrepareFiles do
   describe '#call' do
     it 'returns the segment names and files to include in the export' do
       expect(prepare_files.call).to eq([
-        %w[profile orders],
+        %i[profile orders],
         {
           'profile.json' => {
             'email' => 'jdoe@example.com',
