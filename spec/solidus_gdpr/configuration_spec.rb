@@ -7,11 +7,8 @@ RSpec.describe SolidusGdpr::Configuration do
 
   describe '#segments' do
     it 'returns the Solidus segments' do
-      expected_keys = %i[profile orders]
-
-      expect(configuration.segments).to match(Hash[expected_keys.map do |key|
-        [key, an_instance_of(Class)]
-      end])
+      segments = configuration.segments.transform_values(&:constantize)
+      expect(segments.values).to all(be < SolidusGdpr::DataSegments::Base)
     end
 
     it 'can be altered' do
@@ -22,11 +19,8 @@ RSpec.describe SolidusGdpr::Configuration do
 
   describe '#serializers' do
     it 'returns the serializer classes' do
-      expected_keys = %i[address line_item order profile shipment]
-
-      expect(configuration.serializers).to match(Hash[expected_keys.map do |key|
-        [key, an_instance_of(Class)]
-      end])
+      serializers = configuration.serializers.transform_values(&:constantize)
+      expect(serializers.values).to all(be < SolidusGdpr::Serializers::BaseSerializer)
     end
 
     it 'can be altered' do

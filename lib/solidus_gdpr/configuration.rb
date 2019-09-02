@@ -6,11 +6,11 @@ module SolidusGdpr
     # @return [String] the exports mailer class
     attr_writer :exports_mailer_class
 
-    # @return [Hash{String->Class}] a name-to-class mapping of data segments
+    # @return [Hash{Symbol => String}] a name-to-class mapping of data segments
     def segments
       @segments ||= {
-        profile: DataSegments::ProfileSegment,
-        orders: DataSegments::OrdersSegment,
+        profile: 'SolidusGdpr::DataSegments::ProfileSegment',
+        orders: 'SolidusGdpr::DataSegments::OrdersSegment',
       }
     end
 
@@ -18,14 +18,14 @@ module SolidusGdpr
     #
     # Valid keys are +:address+, +:line_item+, +:order+, +:profile+ and +:shipment+.
     #
-    # @return [Hash<String => Class>] the serializers to use
+    # @return [Hash{Symbol => String}] the serializers to use
     def serializers
       @serializers ||= {
-        address: Serializers::AddressSerializer,
-        line_item: Serializers::LineItemSerializer,
-        order: Serializers::OrderSerializer,
-        profile: Serializers::ProfileSerializer,
-        shipment: Serializers::ShipmentSerializer,
+        address: 'SolidusGdpr::Serializers::AddressSerializer',
+        line_item: 'SolidusGdpr::Serializers::LineItemSerializer',
+        order: 'SolidusGdpr::Serializers::OrderSerializer',
+        profile: 'SolidusGdpr::Serializers::ProfileSerializer',
+        shipment: 'SolidusGdpr::Serializers::ShipmentSerializer',
       }
     end
 

@@ -6,7 +6,7 @@ module SolidusGdpr
     private
 
     def serialize(object, with:)
-      serializer = SolidusGdpr.configuration.serializers[with.to_sym]
+      serializer = SolidusGdpr.configuration.serializers[with.to_sym].constantize
 
       if object.is_a?(Enumerable)
         object.map(&serializer.method(:serialize))
