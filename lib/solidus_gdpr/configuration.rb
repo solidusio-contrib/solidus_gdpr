@@ -20,7 +20,7 @@ module SolidusGdpr
     #
     # @return [Hash<String => Class>] the serializers to use
     def serializers
-      {
+      @serializers ||= {
         address: Serializers::AddressSerializer,
         line_item: Serializers::LineItemSerializer,
         order: Serializers::OrderSerializer,

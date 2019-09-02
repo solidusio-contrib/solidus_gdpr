@@ -13,6 +13,11 @@ RSpec.describe SolidusGdpr::Configuration do
         [key, an_instance_of(Class)]
       end])
     end
+
+    it 'can be altered' do
+      configuration.segments[:profile] = 'test_segment'
+      expect(configuration.segments[:profile]).to eq('test_segment')
+    end
   end
 
   describe '#serializers' do
@@ -22,6 +27,18 @@ RSpec.describe SolidusGdpr::Configuration do
       expect(configuration.serializers).to match(Hash[expected_keys.map do |key|
         [key, an_instance_of(Class)]
       end])
+    end
+
+    it 'can be altered' do
+      configuration.serializers[:profile] = 'test_serializer'
+      expect(configuration.serializers[:profile]).to eq('test_serializer')
+    end
+  end
+
+  describe '#exports_mailer_class' do
+    it 'can be altered' do
+      configuration.exports_mailer_class = 'test_class'
+      expect(configuration.exports_mailer_class).to eq('test_class')
     end
   end
 end
