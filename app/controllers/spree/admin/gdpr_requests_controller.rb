@@ -12,6 +12,16 @@ module Spree
         respond_with(@collection)
       end
 
+      def serve
+        unless @object
+          redirect_to admin_gdpr_requests_path, flash: { error: t('gdpr.exports.error') }
+          return
+        end
+
+        @object.serve
+        redirect_to admin_gdpr_requests_path, notice: t('gdpr.exports.scheduled')
+      end
+
       private
 
       def collection
