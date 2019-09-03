@@ -2,6 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  gdpr:
+    exports:
+      scheduled: The data export will be emailed to the user shortly.
+      error: There was an error serving the request.
   spree:
     new_gdpr_request: New GDPR request
     admin:
