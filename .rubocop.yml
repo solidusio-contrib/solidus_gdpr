@@ -11,6 +11,11 @@ AllCops:
 RSpec/ExampleLength:
   Enabled: false
 
+RSpec/MultipleExpectations:
+  Enabled: true
+  Exclude:
+    - spec/features/**/*
+
 Metrics/BlockLength:
   Enabled: false
 
