@@ -21,6 +21,7 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
 require 'rspec/snapshot'
+require 'webdrivers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -49,6 +50,9 @@ module SerializerHelpers
     end
   end
 end
+
+Capybara.javascript_driver = :selenium_chrome_headless
+Capybara.server = :webrick
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
