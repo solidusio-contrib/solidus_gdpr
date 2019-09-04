@@ -2,7 +2,7 @@
 
 Spree::Core::Engine.routes.draw do
   namespace :admin do
-    resources :gdpr_requests, only: %w[index new create] do
+    resources :gdpr_requests, only: %w[index new create destroy] do
       member do
         post :serve
       end

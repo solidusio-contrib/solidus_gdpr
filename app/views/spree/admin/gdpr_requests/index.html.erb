@@ -45,7 +45,9 @@
           <td class="actions" data-hook="admin_requests_index_row_actions">
             <% unless request.served_at %>
               <%= link_to_with_icon 'play', t('spree.actions.run'), serve_admin_gdpr_request_path(request),
-                class: 'play', method: :post if can?(:serve, request) %>
+                class: 'play serve-request', method: :post if can?(:serve, request) %>
+
+              <%= link_to_delete request, class: 'trash delete-request' if can?(:destroy, request) %>
             <% end %>
           </td>
         </tr>
