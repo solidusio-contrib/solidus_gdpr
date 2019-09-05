@@ -1,0 +1,30 @@
+<div data-hook="admin_gdpr_request_form_fields">
+  <div class="row">
+    <div class="left col-12" data-hook="admin_gdpr_request_form">
+      <div class="row">
+        <div class="col-6 js-gdpr-request-user" data-hook="admin_gdpr_request_form_user">
+          <%= f.field_container :user do %>
+            <%= f.label :user_id, Spree::GdprRequest.human_attribute_name(:user), class: 'required' %><br />
+            <%= f.hidden_field :user_id, class: 'fullwidth user_id' %>
+          <% end %>
+        </div>
+
+        <div class="col-6" data-hook="admin_gdpr_request_form_intent">
+          <%= f.field_container :intent do %>
+            <%= f.label :intent, Spree::GdprRequest.human_attribute_name(:intent), class: 'required' %><br />
+            <%= f.select :intent, @intents, { include_blank: true }, { class: 'custom-select fullwidth' } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" data-hook="admin_gdpr_request_form_user">
+          <%= f.field_container :notes do %>
+            <%= f.label :notes %>
+            <%= f.text_area :notes, class: 'fullwidth notes' %>
+            <%= f.error_message_on :notes %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

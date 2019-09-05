@@ -11,6 +11,7 @@ module Spree
     }
 
     validates :intent, presence: true
+    validates :user, presence: true
 
     def serve
       result = case intent.to_sym

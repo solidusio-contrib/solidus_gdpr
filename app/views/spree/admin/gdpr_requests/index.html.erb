@@ -1,0 +1,65 @@
+<% admin_layout "full-width" %>
+
+<% admin_breadcrumb(plural_resource_name(Spree::GdprRequest)) %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= link_to t('spree.new_gdpr_request'), new_object_url, class: 'btn btn-primary' %>
+  </li>
+<% end if can?(:create, Spree::GdprRequest) %>
+
+<%= paginate @collection, theme: "solidus_admin" %>
+
+<% if @collection.any? %>
+  <table class="index" id="listing_gdpr_requests">
+    <colgroup>
+       <col style="width: 15%;">
+       <col style="width: 15%;">
+       <col style="width: 20%;">
+       <col style="width: 20%;">
+       <col style="width: 20%;">
+       <col style="width: 10%;">
+    </colgroup>
+    <thead>
+      <tr data-hook="admin_products_index_headers">
+        <th><%= Spree::GdprRequest.human_attribute_name(:user) %></th>
+        <th><%= Spree::GdprRequest.human_attribute_name(:intent) %></th>
+        <th><%= Spree::GdprRequest.human_attribute_name(:created_at) %></th>
+        <th><%= Spree::GdprRequest.human_attribute_name(:served_at) %></th>
+        <th><%= Spree::GdprRequest.human_attribute_name(:notes) %></th>
+        <th data-hook="admin_products_index_header_actions" class="actions"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @collection.each do |request| %>
+        <tr id="<%= spree_dom_id request %>" data-hook="admin_requests_index_rows">
+          <td><%= link_to request.user.email, admin_user_path(request.user) %></td>
+          <td><%= title_case(request.intent) %></td>
+          <td><%= pretty_time(request.created_at) %></td>
+          <td>
+            <% if request.served_at %>
+              <%= pretty_time(request.served_at) %>
+            <% end %>
+          </td>
+          <td><%= request.notes %></td>
+          <td class="actions" data-hook="admin_requests_index_row_actions">
+            <% unless request.served_at %>
+              <%= link_to_with_icon 'play', t('spree.actions.run'), serve_admin_gdpr_request_path(request),
+                class: 'play serve-request', method: :post if can?(:serve, request) %>
+
+              <%= link_to_delete request, class: 'trash delete-request' if can?(:destroy, request) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="no-objects-found">
+    <%= render 'spree/admin/shared/no_objects_found',
+                  resource: Spree::GdprRequest,
+                  new_resource_url: new_object_url %>
+  </div>
+<% end %>
+
+<%= paginate @collection, theme: "solidus_admin" %>

@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
 Spree::Core::Engine.routes.draw do
-  # Add your extension routes here
+  namespace :admin do
+    resources :gdpr_requests, only: %w[index new create destroy] do
+      member do
+        post :serve
+      end
+    end
+  end
 end

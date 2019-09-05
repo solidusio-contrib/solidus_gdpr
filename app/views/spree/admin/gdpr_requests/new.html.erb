@@ -1,0 +1,13 @@
+<% admin_breadcrumb link_to(plural_resource_name(Spree::GdprRequest), spree.admin_gdpr_requests_path) %>
+<% admin_breadcrumb t('spree.new_gdpr_request') %>
+
+<%= render 'spree/shared/error_messages', target: @object %>
+
+<%= form_for [:admin, @object], method: :post, url: admin_gdpr_requests_path do |f| %>
+  <fieldset data-hook="new_gdpr_request">
+    <legend align="center"><%= t('spree.new_gdpr_request') %></legend>
+
+    <%= render 'form', f: f %>
+    <%= render 'spree/admin/shared/new_resource_links' %>
+  </fieldset>
+<% end %>
