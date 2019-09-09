@@ -1,5 +1,7 @@
 # solidus_gdpr
 
+[![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_gdpr.svg?style=svg)](https://circleci.com/gh/solidusio-contrib/solidus_gdpr)
+
 This extension helps you respect the GDPR in your Solidus store.
 
 ## Installation
