@@ -4,7 +4,7 @@
 module SolidusGdpr
   module SegmentProcessor
     def self.included(klass)
-      klass.attr_accessor :user
+      klass.send(:attr_accessor, :user)
     end
 
     def initialize(user)
