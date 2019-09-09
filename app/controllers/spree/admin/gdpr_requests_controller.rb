@@ -27,8 +27,8 @@ module Spree
       def collection
         @collection ||=
           Spree::GdprRequest
-            .order('served_at IS NOT NULL', created_at: :desc)
-            .page(params[:page] || 0)
+          .order('served_at IS NOT NULL', created_at: :desc)
+          .page(params[:page] || 0)
       end
 
       def load_data
