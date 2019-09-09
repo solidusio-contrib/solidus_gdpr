@@ -2,8 +2,15 @@
 
 source 'https://rubygems.org'
 
-gem 'solidus', github: 'solidusio/solidus'
-# Provides basic authentication functionality for testing parts of your engine
-gem 'solidus_auth_devise', '~> 1.0'
+branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
+
+gem 'solidus', github: 'solidusio/solidus', branch: branch
+gem 'solidus_auth_devise', '~> 2.0'
+
+if ENV['DB'] == 'mysql'
+  gem 'mysql2', '~> 0.4.10'
+else
+  gem 'pg', '~> 0.21'
+end
 
 gemspec
