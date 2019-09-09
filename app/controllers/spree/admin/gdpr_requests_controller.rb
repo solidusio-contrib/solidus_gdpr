@@ -25,10 +25,13 @@ module Spree
       private
 
       def collection
+        served_at_cond = 'served_at IS NOT NULL'
+        served_at_cond = Arel.sql(served_at_cond) if Arel.respond_to?(:sql)
+
         @collection ||=
           Spree::GdprRequest
-            .order('served_at IS NOT NULL', created_at: :desc)
-            .page(params[:page] || 0)
+          .order(served_at_cond, created_at: :desc)
+          .page(params[:page] || 0)
       end
 
       def load_data

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateSpreeGdprRequests < ActiveRecord::Migration[5.2]
+class CreateSpreeGdprRequests < ActiveRecord::Migration[5.1]
   def change
     create_table :spree_gdpr_requests do |t|
       t.integer :intent, null: false

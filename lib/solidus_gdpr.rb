@@ -1,15 +1,28 @@
 # frozen_string_literal: true
 
 require 'solidus_core'
-require 'zeitwerk'
 require 'zip'
 
-zeitwerk = Zeitwerk::Loader.for_gem.tap do |loader|
-  loader.ignore("#{__dir__}/solidus_gdpr/factories.rb")
-  loader.ignore("#{__dir__}/generators")
-
-  loader.setup
-end
+require 'solidus_gdpr/configuration'
+require 'solidus_gdpr/segment_processor'
+require 'solidus_gdpr/serializer_aware'
+require 'solidus_gdpr/engine'
+require 'solidus_gdpr/version'
+require 'solidus_gdpr/data_eraser'
+require 'solidus_gdpr/data_exporter'
+require 'solidus_gdpr/data_exporter/assemble_archive'
+require 'solidus_gdpr/data_exporter/prepare_files'
+require 'solidus_gdpr/data_exporter/send_archive'
+require 'solidus_gdpr/data_segments/base'
+require 'solidus_gdpr/data_segments/orders_segment'
+require 'solidus_gdpr/data_segments/profile_segment'
+require 'solidus_gdpr/serializers/base_serializer'
+require 'solidus_gdpr/serializers/address_serializer'
+require 'solidus_gdpr/serializers/line_item_serializer'
+require 'solidus_gdpr/serializers/order_serializer'
+require 'solidus_gdpr/serializers/profile_serializer'
+require 'solidus_gdpr/serializers/shipment_serializer'
+require 'solidus_gdpr/data_restrictor'
 
 module SolidusGdpr
   class << self
@@ -30,5 +43,3 @@ module SolidusGdpr
     end
   end
 end
-
-zeitwerk.eager_load

@@ -13,12 +13,11 @@ Gem::Specification.new do |s|
   s.email = 'alessandrodesantis@nebulab.it'
   s.homepage = 'https://nebulab.it'
 
-  s.files = Dir["{app,config,db,lib}/**/*", 'LICENSE', 'Rakefile', 'README.md']
+  s.files = Dir['{app,config,db,lib}/**/*', 'LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['test/**/*']
 
   s.add_dependency 'rubyzip', '~> 1.2'
-  s.add_dependency 'solidus_core', '~> 2.0'
-  s.add_dependency 'zeitwerk', '~> 2.1'
+  s.add_dependency 'solidus_core', ['>= 1.2.0', '< 3']
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'capybara-select2'
