@@ -7,14 +7,38 @@ orbs:
   # or goes EOL.
   solidusio_extensions: solidusio/extensions@volatile
 
+commands:
+  update-chrome:
+    steps:
+      - run:
+          name: Prepare APT repositories
+          command: |
+            echo "deb [check-valid-until=no] http://cdn-fastly.deb.debian.org/debian jessie main" | sudo tee -a /etc/apt/sources.list > /dev/null
+            echo "deb [check-valid-until=no] http://archive.debian.org/debian jessie-backports main" | sudo tee -a /etc/apt/sources.list > /dev/null
+            sed '/deb http:\/\/deb.debian.org\/debian jessie-updates main/d' /etc/apt/sources.list | sudo tee /etc/apt/sources.list > /dev/null
+            sed '/deb http:\/\/http.us.debian.org\/debian\/ jessie-backports main/d' /etc/apt/sources.list | sudo tee /etc/apt/sources.list > /dev/null
+            sed '/deb-src http:\/\/http.us.debian.org\/debian\/ jessie-backports main/d' /etc/apt/sources.list | sudo tee /etc/apt/sources.list > /dev/null
+            sudo cat /etc/apt/sources.list
+            sudo apt-get -o Acquire::Check-Valid-Until=false update
+      - run:
+          name: Install latest Chrome
+          command: |
+            sudo apt-get install lsb-release libappindicator3-1
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome"|HERE/chrome" --no-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+
 jobs:
   run-specs-with-postgres:
     executor: solidusio_extensions/postgres
     steps:
+      - update-chrome
       - solidusio_extensions/run-tests
   run-specs-with-mysql:
     executor: solidusio_extensions/mysql
     steps:
+      - update-chrome
       - solidusio_extensions/run-tests
 
 workflows:
