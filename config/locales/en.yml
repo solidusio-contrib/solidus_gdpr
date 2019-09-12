@@ -4,7 +4,10 @@
 en:
   gdpr:
     exports:
-      scheduled: The data export will be emailed to the user shortly.
+      data_restriction: The data restriction is now enabled.
+      data_erasure: The data has been deleted.
+      data_export: The data export will be emailed to the user shortly.
+      resume_processing: The data restriction is now disabled.
       error: There was an error serving the request.
   spree:
     new_gdpr_request: New GDPR request

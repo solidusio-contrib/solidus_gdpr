@@ -19,7 +19,7 @@ module Spree
         end
 
         @object.serve
-        redirect_to admin_gdpr_requests_path, notice: t('gdpr.exports.scheduled')
+        redirect_to admin_gdpr_requests_path, notice: t("gdpr.exports.#{@object.intent}")
       end
 
       private
