@@ -59,7 +59,7 @@ end
 
 As you can see, the segment has a name (which will be used in logs as well as other places such as
 data exports) and nothing else. Even though perfectly valid, this segment is not very useful right
-now. Let's see how to define custom GDPR-related business logic for our segments! 
+now. Let's see how to define custom GDPR-related business logic for our segments!
 
 #### Data export
 
@@ -165,7 +165,7 @@ directly to this area by creating `Spree::GdprRequest` records:
 
 ```ruby
 request = Spree::GdprRequest.create!(
-  intent: 'data_export', # ['data_export', 'data_erasure', 'processing_restriction']
+  intent: 'data_export', # ['data_export', 'data_erasure', 'data_restriction', 'resume_processing']
   user: current_spree_user,
   notes: 'Any additional information here',
 )

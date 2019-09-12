@@ -8,6 +8,7 @@ module Spree
       data_restriction: 0,
       data_erasure: 1,
       data_export: 2,
+      resume_processing: 3
     }
 
     validates :intent, presence: true
@@ -21,6 +22,8 @@ module Spree
         SolidusGdpr::DataEraser.new(user).run
       when :data_restriction
         SolidusGdpr::DataRestrictor.new(user).run
+      when :resume_processing
+        SolidusGdpr::DataRestrictor.new(user).rollback
       else
         fail NotImplementedError, "#{intent} requests cannot be served automatically"
       end
