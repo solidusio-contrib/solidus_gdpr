@@ -14,6 +14,8 @@ module Spree
     validates :intent, presence: true
     validates :user, presence: true
 
+    after_create :after_create
+
     def serve
       result = case intent.to_sym
       when :data_export
@@ -33,7 +35,22 @@ module Spree
         processed_segments: [result],
       )
 
+      after_serve
       result
+    end
+
+    private
+
+    def after_create
+      Spree::Event.fire 'gdpr_request_created' if defined? Spree::Event
+
+      # otherwise noop, overwrite me in your app
+    end
+
+    def after_serve
+      Spree::Event.fire 'gdpr_request_served' if defined? Spree::Event
+
+      # otherwise noop, overwrite me in your app
     end
   end
 end

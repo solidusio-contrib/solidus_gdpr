@@ -9,8 +9,36 @@ RSpec.describe Spree::GdprRequest do
     expect(gdpr_request).to be_valid
   end
 
+  # rubocop:disable SubjectStub
+  describe '#create' do
+    subject(:gdpr_request) { described_class.new(user: user, intent: :data_restriction) }
+
+    let(:user) { create(:user) }
+
+    before { allow(gdpr_request).to receive(:after_create) }
+
+    it 'calls after_create hook' do
+      gdpr_request.save!
+
+      expect(gdpr_request).to have_received(:after_create)
+    end
+  end
+  # rubocop:enable SubjectStub
+
   describe '#serve' do
     subject(:gdpr_request) { create(:gdpr_request, intent: intent) }
+
+    let(:intent) { :data_restriction }
+
+    # rubocop:disable SubjectStub
+    before { allow(gdpr_request).to receive(:after_serve) }
+
+    it 'calls after_serve hook' do
+      gdpr_request.serve
+
+      expect(gdpr_request).to have_received(:after_serve)
+    end
+    # rubocop:enable SubjectStub
 
     context 'when the request is for a data export' do
       let(:intent) { :data_export }
@@ -53,8 +81,6 @@ RSpec.describe Spree::GdprRequest do
     end
 
     context 'when the request is for a data restriction' do
-      let(:intent) { :data_restriction }
-
       let(:data_exporter) { instance_double('SolidusGdpr::DataRestrictor', run: %w[foo bar]) }
 
       before do
