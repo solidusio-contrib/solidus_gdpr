@@ -71,5 +71,25 @@ RSpec.describe Spree::GdprRequest do
         expect { gdpr_request.serve }.to change(gdpr_request, :served_at).from(nil)
       end
     end
+
+    context 'when the request is for a resume processing' do
+      let(:intent) { :resume_processing }
+
+      let(:data_exporter) { instance_double('SolidusGdpr::DataRestrictor', rollback: %w[foo bar]) }
+
+      before do
+        allow(SolidusGdpr::DataRestrictor).to receive(:new)
+          .with(gdpr_request.user)
+          .and_return(data_exporter)
+      end
+
+      it 'returns the list of processed segments' do
+        expect(gdpr_request.serve).to eq(%w[foo bar])
+      end
+
+      it 'marks the request as served' do
+        expect { gdpr_request.serve }.to change(gdpr_request, :served_at).from(nil)
+      end
+    end
   end
 end
