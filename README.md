@@ -190,6 +190,15 @@ computationally intensive.
 You might even decide to simply create the request, but then serve it manually via the admin panel
 by clicking on "Serve Request".
 
+### Hooks
+
+When a request is created or served, the `after_create` and `after_serve` hooks are called.
+
+You can use these hooks in two ways:
+
+- If your application uses Solidus >= 2.9, you can use the `Spree::Event` class, here is the [documentation](https://guides.solidus.io/developers/events/overview.html). The emitted events are: `gdpr_request_created` and `gdpr_request_served`.
+- If your application uses Solidus < 2.9, you can simply override the methods using decorators.
+
 ## Testing
 
 First bundle your dependencies, then run `rake`. `rake` will default to building the dummy app if it
