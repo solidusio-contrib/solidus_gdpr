@@ -18,7 +18,25 @@ module SolidusGdpr
       #
       # @return [Array<Hash>]
       def export
-        serialize(user.orders.includes(*INCLUDES), with: :order)
+        serialize(orders, with: :order)
+      end
+
+      # Erases the data segment.
+      #
+      # This will scramble the order's email.
+      def erase
+        orders.update(email: SolidusGdpr.configuration.erased_email.call)
+      end
+
+      private
+
+      # Returns the list of the user's orders using the email
+      #
+      # @return [Spree::Order::ActiveRecord_Relation]
+      def orders
+        ::Spree::Order
+          .left_outer_joins(:user)
+          .where('spree_orders.email = ? OR spree_users.email = ?', email, email)
       end
     end
   end

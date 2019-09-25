@@ -5,6 +5,8 @@ module SolidusGdpr
     # @api private
     class ProfileSerializer < BaseSerializer
       def as_json(*)
+        return unless object
+
         {
           email: object.email,
           sign_in_count: object.sign_in_count,

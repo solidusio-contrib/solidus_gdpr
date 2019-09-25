@@ -11,9 +11,9 @@ RSpec.describe Spree::GdprRequest do
 
   # rubocop:disable SubjectStub
   describe '#create' do
-    subject(:gdpr_request) { described_class.new(user: user, intent: :data_restriction) }
-
-    let(:user) { create(:user) }
+    subject(:gdpr_request) do
+      described_class.new(email: 'admin@example.com', intent: :data_restriction)
+    end
 
     before { allow(gdpr_request).to receive(:after_create) }
 
@@ -47,7 +47,7 @@ RSpec.describe Spree::GdprRequest do
 
       before do
         allow(SolidusGdpr::DataExporter).to receive(:new)
-          .with(gdpr_request.user)
+          .with(gdpr_request.email)
           .and_return(data_exporter)
       end
 
@@ -67,7 +67,7 @@ RSpec.describe Spree::GdprRequest do
 
       before do
         allow(SolidusGdpr::DataEraser).to receive(:new)
-          .with(gdpr_request.user)
+          .with(gdpr_request.email)
           .and_return(data_exporter)
       end
 
@@ -85,7 +85,7 @@ RSpec.describe Spree::GdprRequest do
 
       before do
         allow(SolidusGdpr::DataRestrictor).to receive(:new)
-          .with(gdpr_request.user)
+          .with(gdpr_request.email)
           .and_return(data_exporter)
       end
 
@@ -105,7 +105,7 @@ RSpec.describe Spree::GdprRequest do
 
       before do
         allow(SolidusGdpr::DataRestrictor).to receive(:new)
-          .with(gdpr_request.user)
+          .with(gdpr_request.email)
           .and_return(data_exporter)
       end
 

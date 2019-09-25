@@ -11,7 +11,7 @@ describe 'GDPR request actions', type: :feature, js: true do
 
   context 'when a request is already served' do
     before do
-      create(:gdpr_request, :served, user: admin_user)
+      create(:gdpr_request, :served)
 
       visit spree.admin_gdpr_requests_path
     end
@@ -24,7 +24,7 @@ describe 'GDPR request actions', type: :feature, js: true do
 
   context 'when a request is not served yet' do
     before do
-      create(:gdpr_request, user: admin_user)
+      create(:gdpr_request)
 
       visit spree.admin_gdpr_requests_path
     end
@@ -36,7 +36,7 @@ describe 'GDPR request actions', type: :feature, js: true do
   end
 
   describe 'GDPR serve' do
-    let!(:request) { create(:gdpr_request, intent: 'data_erasure', user: admin_user) }
+    let!(:request) { create(:gdpr_request, intent: 'data_erasure') }
 
     before { visit spree.admin_gdpr_requests_path }
 
@@ -49,7 +49,7 @@ describe 'GDPR request actions', type: :feature, js: true do
 
   describe 'GDPR delete' do
     before do
-      create(:gdpr_request, user: admin_user)
+      create(:gdpr_request)
 
       visit spree.admin_gdpr_requests_path
     end

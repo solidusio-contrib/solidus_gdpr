@@ -4,16 +4,16 @@ module SolidusGdpr
   class DataExporter
     # @api private
     class SendArchive
-      attr_reader :user, :archive_path
+      attr_reader :email, :archive_path
 
-      def initialize(user, archive_path:)
-        @user = user
+      def initialize(email, archive_path:)
+        @email = email
         @archive_path = archive_path
       end
 
       def call
         SolidusGdpr.configuration.exports_mailer_class.constantize.export_email(
-          user,
+          email,
           export: File.read(archive_path),
         ).deliver_now
       end

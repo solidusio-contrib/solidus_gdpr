@@ -3,52 +3,86 @@
 require 'spec_helper'
 
 RSpec.describe SolidusGdpr::DataSegments::ProfileSegment do
-  subject(:segment) { described_class.new(user) }
+  subject(:segment) { described_class.new(email) }
+
+  let(:email) { 'admin@example.com' }
 
   describe '#export' do
-    let(:user) { create(:user) }
+    context 'when there is a user with that email' do
+      let!(:user) { create(:user, email: email) }
 
-    before do
-      allow(SolidusGdpr::Serializers::ProfileSerializer).to receive(:serialize)
-        .with(user)
-        .and_return(foo: 'bar')
+      before do
+        allow(SolidusGdpr::Serializers::ProfileSerializer).to receive(:serialize)
+          .with(user)
+          .and_return(foo: 'bar')
+      end
+
+      it "exports the user's profile" do
+        expect(segment.export).to eq(foo: 'bar')
+      end
     end
 
-    it "exports the user's profile" do
-      expect(segment.export).to eq(foo: 'bar')
+    context "when there isn't a user with that email" do
+      it 'is a no-op' do
+        expect(segment.export).to eq(nil)
+      end
     end
   end
 
   describe '#erase' do
-    let(:user) { instance_spy('Spree::User') }
+    context 'when there is a user with that email' do
+      let!(:user) { create(:user, email: email) }
 
-    it "scrambles the user's email" do
-      segment.erase
+      it "scrambles the user's email" do
+        expect {
+          segment.erase
+          user.reload
+        }.to change(user, :email)
+      end
+    end
 
-      expect(user).to have_received(:update!)
-        .with(email: an_instance_of(String))
+    context "when there isn't a user with that email" do
+      it "doesn't raise an exception" do
+        expect { segment.erase }.not_to raise_error
+      end
     end
   end
 
   describe '#restrict_processing' do
-    let(:user) { instance_spy('Spree::User') }
+    context 'when there is a user with that email' do
+      let!(:user) { create(:user, email: email) }
 
-    it "restricts processing of the user's data" do
-      segment.restrict_processing
+      it "restricts processing of the user's data" do
+        expect {
+          segment.restrict_processing
+          user.reload
+        }.to change(user, :data_processable).to(false)
+      end
+    end
 
-      expect(user).to have_received(:update!)
-        .with(data_processable: false)
+    context "when there isn't a user with that email" do
+      it "doesn't raise an exception" do
+        expect { segment.restrict_processing }.not_to raise_error
+      end
     end
   end
 
   describe '#resume_processing' do
-    let(:user) { instance_spy('Spree::User') }
+    context 'when there is a user with that email' do
+      let!(:user) { create(:user, email: email, data_processable: false) }
 
-    it "resumes processing of the user's data" do
-      segment.resume_processing
+      it "resumes processing of the user's data" do
+        expect {
+          segment.resume_processing
+          user.reload
+        }.to change(user, :data_processable).to(true)
+      end
+    end
 
-      expect(user).to have_received(:update!)
-        .with(data_processable: true)
+    context "when there isn't a user with that email" do
+      it "doesn't raise an exception" do
+        expect { segment.resume_processing }.not_to raise_error
+      end
     end
   end
 end

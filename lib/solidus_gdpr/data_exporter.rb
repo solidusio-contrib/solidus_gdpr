@@ -3,14 +3,14 @@
 module SolidusGdpr
   # Exports all configured data segments for a given user.
   class DataExporter
-    # @return [Spree::User] the user to export
-    attr_reader :user
+    # @return [String] the email to retrieve the user and the orders
+    attr_reader :email
 
     # Initializes the data exporter.
     #
-    # @param user [Spree::User] the user to export
-    def initialize(user)
-      @user = user
+    # @param user [String] the email to retrieve the user and the orders
+    def initialize(email)
+      @email = email
     end
 
     # Creates a ZIP archive with the user's data export.
@@ -24,9 +24,9 @@ module SolidusGdpr
     #
     # @return [Array<String>] the names of the exported data segments
     def run
-      segments, files = PrepareFiles.new(user).call
-      archive_path = AssembleArchive.new(user, files: files).call
-      SendArchive.new(user, archive_path: archive_path).call
+      segments, files = PrepareFiles.new(email).call
+      archive_path = AssembleArchive.new(files: files).call
+      SendArchive.new(email, archive_path: archive_path).call
 
       segments
     end

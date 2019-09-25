@@ -3,9 +3,9 @@
 require 'spec_helper'
 
 RSpec.describe SolidusGdpr::DataExporter do
-  subject(:data_exporter) { described_class.new(user) }
+  subject(:data_exporter) { described_class.new(email) }
 
-  let(:user) { build_stubbed(:user) }
+  let(:email) { 'admin@example.com' }
 
   describe '#run' do
     it 'assembles and sends the export to the user' do
@@ -24,15 +24,15 @@ RSpec.describe SolidusGdpr::DataExporter do
       send_archive = instance_spy('SolidusGdpr::DataExporter::SendArchive')
 
       allow(SolidusGdpr::DataExporter::PrepareFiles).to receive(:new)
-        .with(user)
+        .with(email)
         .and_return(prepare_files)
 
       allow(SolidusGdpr::DataExporter::AssembleArchive).to receive(:new)
-        .with(user, files: files)
+        .with(files: files)
         .and_return(assemble_archive)
 
       allow(SolidusGdpr::DataExporter::SendArchive).to receive(:new)
-        .with(user, archive_path: archive_path)
+        .with(email, archive_path: archive_path)
         .and_return(send_archive)
 
       data_exporter.run

@@ -8,4 +8,12 @@ Spree::Core::Engine.routes.draw do
       end
     end
   end
+
+  namespace :api do
+    resource :users do
+      member do
+        get :emails
+      end
+    end
+  end
 end

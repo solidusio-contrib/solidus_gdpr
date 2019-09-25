@@ -4,15 +4,14 @@ module SolidusGdpr
   class DataExporter
     # @api private
     class AssembleArchive
-      attr_reader :user, :files
+      attr_reader :files
 
-      def initialize(user, files:)
-        @user = user
+      def initialize(files:)
         @files = files
       end
 
       def call
-        export_id = "export-#{user.id}-#{SecureRandom.hex(5)}"
+        export_id = "export-#{SecureRandom.hex(5)}"
         archive_path = File.join(base_path, "#{export_id}.zip")
 
         FileUtils.mkdir_p(base_path)

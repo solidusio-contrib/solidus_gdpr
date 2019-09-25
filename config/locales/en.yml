@@ -10,9 +10,12 @@ en:
       resume_processing: The data restriction is now disabled.
       error: There was an error serving the request.
   spree:
+    choose_an_email: Choose an email
     new_gdpr_request: New GDPR request
     admin:
       tab:
         gdpr: GDPR
+      gdpr:
+        orders_count: Orders count
     actions:
       run: Run
