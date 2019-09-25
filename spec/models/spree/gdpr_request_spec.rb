@@ -9,6 +9,23 @@ RSpec.describe Spree::GdprRequest do
     expect(gdpr_request).to be_valid
   end
 
+  describe '#user' do
+    subject { gdpr_request.user }
+
+    let!(:gdpr_request) { create(:gdpr_request, email: email) }
+    let(:email) { 'admin@example.com' }
+
+    context "when there is a user with the request's email" do
+      let!(:user) { create(:user, email: email) }
+
+      it { is_expected.to eq(user) }
+    end
+
+    context "when there isn't a user with the request's email" do
+      it { is_expected.to be_nil }
+    end
+  end
+
   # rubocop:disable SubjectStub
   describe '#create' do
     subject(:gdpr_request) do

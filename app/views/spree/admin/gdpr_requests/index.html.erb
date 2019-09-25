@@ -33,7 +33,13 @@
     <tbody>
       <% @collection.each do |request| %>
         <tr id="<%= spree_dom_id request %>" data-hook="admin_requests_index_rows">
-          <td><%= request.email %></td>
+          <td>
+            <% if request.user.present? %>
+              <%= link_to request.email, admin_user_path(request.user) %>
+            <% else %>
+              <%= request.email %>
+            <% end %>
+          </td>
           <td><%= title_case(request.intent) %></td>
           <td><%= pretty_time(request.created_at) %></td>
           <td>

@@ -14,6 +14,10 @@ module Spree
 
     after_create :after_create
 
+    def user
+      ::Spree::User.find_by(email: email)
+    end
+
     def serve
       result = case intent.to_sym
       when :data_export
