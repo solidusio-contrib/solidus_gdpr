@@ -5,7 +5,7 @@ class EmailSelect {
       minimumInputLength: 3,
       ajax: {
         url: Spree.pathFor('api/users/emails'),
-        params: { 'headers': { 'Authorization': `Bearer ${Spree.api_key}` } },
+        params: { 'headers': { 'Authorization': `Bearer ${Spree.api_key}`, 'X-Spree-Token': Spree.api_key } },
         datatype: 'json',
         data: (term, data) => (
           {
