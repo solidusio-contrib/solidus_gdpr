@@ -2,10 +2,10 @@
   <div class="row">
     <div class="left col-12" data-hook="admin_gdpr_request_form">
       <div class="row">
-        <div class="col-6 js-gdpr-request-user" data-hook="admin_gdpr_request_form_user">
+        <div class="col-6" data-hook="admin_gdpr_request_form_email">
           <%= f.field_container :user do %>
-            <%= f.label :user_id, Spree::GdprRequest.human_attribute_name(:user), class: 'required' %><br />
-            <%= f.hidden_field :user_id, class: 'fullwidth user_id' %>
+            <%= f.label :email, Spree::GdprRequest.human_attribute_name(:email), class: 'required' %><br />
+            <%= f.text_field :email, class: 'fullwidth email js-gdpr-request-email' %>
           <% end %>
         </div>
 
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-12" data-hook="admin_gdpr_request_form_user">
+        <div class="col-12" data-hook="admin_gdpr_request_form_notes">
           <%= f.field_container :notes do %>
             <%= f.label :notes %>
             <%= f.text_area :notes, class: 'fullwidth notes' %>

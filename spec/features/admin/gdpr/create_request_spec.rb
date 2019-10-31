@@ -19,7 +19,7 @@ describe 'GDPR create request', type: :feature, js: true do
 
       click_on 'New GDPR request'
 
-      select2(admin_user.email, from: 'User')
+      targetted_select2_search admin_user.email, from: '.js-gdpr-request-email'
       find('#gdpr_request_intent').find(:xpath, 'option[2]').select_option
 
       click_on 'Create'

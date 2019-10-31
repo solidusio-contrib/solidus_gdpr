@@ -4,7 +4,7 @@ require 'spec_helper'
 
 RSpec.describe Spree::GdprExportsMailer do
   describe '.export_email' do
-    subject(:email) { described_class.export_email(user, export: 'export content') }
+    subject(:email) { described_class.export_email(user.email, export: 'export content') }
 
     let(:user) { build_stubbed(:user) }
 

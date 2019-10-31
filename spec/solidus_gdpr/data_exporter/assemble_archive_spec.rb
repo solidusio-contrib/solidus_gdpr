@@ -3,9 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe SolidusGdpr::DataExporter::AssembleArchive do
-  subject(:assemble_archive) { described_class.new(user, files: files) }
+  subject(:assemble_archive) { described_class.new(files: files) }
 
-  let(:user) { build_stubbed(:user) }
   let(:files) do
     {
       'profile.json' => 'profile export content',

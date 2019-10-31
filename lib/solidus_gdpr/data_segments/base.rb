@@ -17,15 +17,20 @@ module SolidusGdpr
     class Base
       include SerializerAware
 
+      # @!attribute [r] email
+      #   @return [String]
+      attr_reader :email
+
       # @!attribute [r] user
       #   @return [Spree::User]
       attr_reader :user
 
       # Initializes the data segment.
       #
-      # @param user [Spree::User]
-      def initialize(user)
-        @user = user
+      # @param email [String]
+      def initialize(email)
+        @email = email
+        @user = ::Spree::User.find_by(email: email)
       end
 
       # Returns a JSON representation of this data segment.

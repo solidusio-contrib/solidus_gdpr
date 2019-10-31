@@ -6,6 +6,9 @@ module SolidusGdpr
     # @return [String] the exports mailer class
     attr_writer :exports_mailer_class
 
+    # @return [String] the erased email generation
+    attr_writer :erased_email
+
     # @return [Hash{Symbol => String}] a name-to-class mapping of data segments
     def segments
       @segments ||= {
@@ -31,6 +34,12 @@ module SolidusGdpr
 
     def exports_mailer_class
       @exports_mailer_class ||= 'Spree::GdprExportsMailer'
+    end
+
+    def erased_email
+      @erased_email ||= -> do
+        "#{SecureRandom.hex(10)}@gdprerased.com"
+      end
     end
   end
 end

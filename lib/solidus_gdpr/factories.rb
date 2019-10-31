@@ -3,7 +3,7 @@
 FactoryBot.define do
   factory :gdpr_request, class: 'Spree::GdprRequest' do
     intent { Spree::GdprRequest.intents.values.sample }
-    user
+    email { 'admin@example.com' }
 
     trait :served do
       served_at { Time.now }

@@ -2,8 +2,6 @@
 
 module Spree
   class GdprRequest < ApplicationRecord
-    belongs_to :user, class_name: Spree.user_class.to_s, inverse_of: :gdpr_requests
-
     enum intent: {
       data_restriction: 0,
       data_erasure: 1,
@@ -12,20 +10,24 @@ module Spree
     }
 
     validates :intent, presence: true
-    validates :user, presence: true
+    validates :email, presence: true
 
     after_create :after_create
+
+    def user
+      ::Spree::User.find_by(email: email)
+    end
 
     def serve
       result = case intent.to_sym
       when :data_export
-        SolidusGdpr::DataExporter.new(user).run
+        SolidusGdpr::DataExporter.new(email).run
       when :data_erasure
-        SolidusGdpr::DataEraser.new(user).run
+        SolidusGdpr::DataEraser.new(email).run
       when :data_restriction
-        SolidusGdpr::DataRestrictor.new(user).run
+        SolidusGdpr::DataRestrictor.new(email).run
       when :resume_processing
-        SolidusGdpr::DataRestrictor.new(user).rollback
+        SolidusGdpr::DataRestrictor.new(email).rollback
       else
         fail NotImplementedError, "#{intent} requests cannot be served automatically"
       end

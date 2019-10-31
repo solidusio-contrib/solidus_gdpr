@@ -15,21 +15,21 @@ module SolidusGdpr
       #
       # This will scramble the user's email.
       def erase
-        user.update!(email: "#{SecureRandom.hex(10)}@example.com")
+        user&.update!(email: SolidusGdpr.configuration.erased_email.call)
       end
 
       # Restricts processing of the user's profile.
       #
       # This will set +data_processable+ to +false+ in +spree_users+.
       def restrict_processing
-        user.update!(data_processable: false)
+        user&.update!(data_processable: false)
       end
 
       # Resumes processing of the user's profile.
       #
       # This will set +data_processable+ to +true+ in +spree_users+.
       def resume_processing
-        user.update!(data_processable: true)
+        user&.update!(data_processable: true)
       end
     end
   end

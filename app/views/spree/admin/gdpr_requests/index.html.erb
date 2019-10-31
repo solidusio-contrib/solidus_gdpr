@@ -22,7 +22,7 @@
     </colgroup>
     <thead>
       <tr data-hook="admin_products_index_headers">
-        <th><%= Spree::GdprRequest.human_attribute_name(:user) %></th>
+        <th><%= Spree::GdprRequest.human_attribute_name(:email) %></th>
         <th><%= Spree::GdprRequest.human_attribute_name(:intent) %></th>
         <th><%= Spree::GdprRequest.human_attribute_name(:created_at) %></th>
         <th><%= Spree::GdprRequest.human_attribute_name(:served_at) %></th>
@@ -33,7 +33,13 @@
     <tbody>
       <% @collection.each do |request| %>
         <tr id="<%= spree_dom_id request %>" data-hook="admin_requests_index_rows">
-          <td><%= link_to request.user.email, admin_user_path(request.user) %></td>
+          <td>
+            <% if request.user.present? %>
+              <%= link_to request.email, admin_user_path(request.user) %>
+            <% else %>
+              <%= request.email %>
+            <% end %>
+          </td>
           <td><%= title_case(request.intent) %></td>
           <td><%= pretty_time(request.created_at) %></td>
           <td>

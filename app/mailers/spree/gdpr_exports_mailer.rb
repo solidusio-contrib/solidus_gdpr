@@ -2,13 +2,13 @@
 
 module Spree
   class GdprExportsMailer < Spree::BaseMailer
-    def export_email(user, export:)
-      @user = user
+    def export_email(email, export:)
+      @email = email
 
       attachments["export-#{Time.zone.now.to_i}.zip"] = export
 
       mail(
-        to: user.email,
+        to: email,
         from: from_address(Spree::Store.default),
         subject: 'Your GDPR Data Export',
       )

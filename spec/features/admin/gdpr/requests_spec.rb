@@ -20,9 +20,9 @@ describe 'GDPR requests', type: :feature, js: true do
   context 'when there are requests' do
     context 'when there are fewer than 25 requests' do
       before do
-        create(:gdpr_request, :served, intent: 'data_export', user: admin_user)
-        create(:gdpr_request, intent: 'data_erasure', user: admin_user)
-        create(:gdpr_request, intent: 'data_restriction', user: admin_user)
+        create(:gdpr_request, :served, intent: 'data_export')
+        create(:gdpr_request, intent: 'data_erasure')
+        create(:gdpr_request, intent: 'data_restriction')
 
         visit spree.admin_gdpr_requests_path
       end
@@ -50,7 +50,7 @@ describe 'GDPR requests', type: :feature, js: true do
 
     context 'when there are more than 25 requests' do
       before do
-        create_list(:gdpr_request, 30, user: admin_user)
+        create_list(:gdpr_request, 30)
 
         visit spree.admin_gdpr_requests_path
       end
