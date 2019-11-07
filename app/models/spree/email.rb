@@ -41,7 +41,7 @@ module Spree
       end
 
       def execute(sql)
-        ActiveRecord::Base.connection.execute(sql)
+        ActiveRecord::Base.connection.exec_query(sql)
       end
     end
 
