@@ -28,7 +28,7 @@ module Spree
       def limit_sql(user_scope, order_scope)
         <<~SQL
           SELECT email
-          FROM (#{user_scope.to_sql} UNION #{order_scope.to_sql})
+          FROM (#{user_scope.to_sql} UNION #{order_scope.to_sql}) as emails
           limit #{PER_PAGE}
         SQL
       end
@@ -36,7 +36,7 @@ module Spree
       def count_sql(user_scope, order_scope)
         <<~SQL
           SELECT COUNT(*) as count
-          FROM (#{user_scope.to_sql} UNION #{order_scope.to_sql}) emails
+          FROM (#{user_scope.to_sql} UNION #{order_scope.to_sql}) as emails
         SQL
       end
 
