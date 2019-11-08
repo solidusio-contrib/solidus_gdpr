@@ -34,6 +34,9 @@ require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
 
+# Requires configuration defined in solidus_support
+require "solidus_support/extension/feature_helper"
+
 # Requires factories defined in lib/solidus_gdpr/factories.rb
 require 'solidus_gdpr/factories'
 

@@ -21,7 +21,7 @@ describe 'GDPR requests', type: :feature, js: true do
     context 'when there are fewer than 25 requests' do
       before do
         create(:gdpr_request, :served, intent: 'data_export')
-        create(:gdpr_request, intent: 'data_erasure')
+        create(:gdpr_request, intent: 'data_erasure', created_at: Time.zone.now + 1.second)
         create(:gdpr_request, intent: 'data_restriction')
 
         visit spree.admin_gdpr_requests_path
@@ -35,11 +35,11 @@ describe 'GDPR requests', type: :feature, js: true do
         expect(page).to have_selector('[data-hook="admin_requests_index_rows"]', count: 3)
 
         within all('[data-hook="admin_requests_index_rows"]').first do
-          expect(page).to have_text('Data Restriction')
+          expect(page).to have_text('Data Erasure')
         end
 
         within all('[data-hook="admin_requests_index_rows"]')[1] do
-          expect(page).to have_text('Data Erasure')
+          expect(page).to have_text('Data Restriction')
         end
 
         within all('[data-hook="admin_requests_index_rows"]').last do
