@@ -20,17 +20,17 @@ module Spree
 
     def serve
       result = case intent.to_sym
-      when :data_export
-        SolidusGdpr::DataExporter.new(email).run
-      when :data_erasure
-        SolidusGdpr::DataEraser.new(email).run
-      when :data_restriction
-        SolidusGdpr::DataRestrictor.new(email).run
-      when :resume_processing
-        SolidusGdpr::DataRestrictor.new(email).rollback
-      else
-        fail NotImplementedError, "#{intent} requests cannot be served automatically"
-      end
+               when :data_export
+                 SolidusGdpr::DataExporter.new(email).run
+               when :data_erasure
+                 SolidusGdpr::DataEraser.new(email).run
+               when :data_restriction
+                 SolidusGdpr::DataRestrictor.new(email).run
+               when :resume_processing
+                 SolidusGdpr::DataRestrictor.new(email).rollback
+               else
+                 fail NotImplementedError, "#{intent} requests cannot be served automatically"
+               end
 
       update!(
         served_at: Time.zone.now,

@@ -6,7 +6,7 @@ FactoryBot.define do
     email { 'admin@example.com' }
 
     trait :served do
-      served_at { Time.now }
+      served_at { Time.zone.now }
     end
   end
 end

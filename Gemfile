@@ -7,10 +7,13 @@ branch = ENV.fetch('SOLIDUS_BRANCH', 'master')
 gem 'solidus', github: 'solidusio/solidus', branch: branch
 gem 'solidus_auth_devise', '~> 2.0'
 
-if ENV['DB'] == 'mysql'
-  gem 'mysql2', '~> 0.4.10'
+case ENV['DB']
+when 'mysql'
+  gem 'mysql2'
 else
-  gem 'pg', '~> 1.1'
+  gem 'pg'
 end
+
+gem 'solidus_extension_dev_tools', github: 'solidusio-contrib/solidus_extension_dev_tools'
 
 gemspec
