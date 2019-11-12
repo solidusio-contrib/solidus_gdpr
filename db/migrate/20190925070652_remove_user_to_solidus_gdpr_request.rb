@@ -2,7 +2,7 @@
 
 class RemoveUserToSolidusGdprRequest < ActiveRecord::Migration[5.1]
   def change
-    remove_column :spree_gdpr_requests, :user_id
+    remove_column :spree_gdpr_requests, :user_id # rubocop:disable Rails/ReversibleMigration
 
     reversible do |dir|
       dir.down do

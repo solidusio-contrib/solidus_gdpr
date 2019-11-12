@@ -16,11 +16,9 @@ module SolidusGdpr
     def with_each_segment
       Enumerator.new do |y|
         SolidusGdpr.configuration.segments.each_pair do |key, klass|
-          begin
-            y << [key, klass.constantize.new(email)]
-          rescue NotImplementedError
-            nil
-          end
+          y << [key, klass.constantize.new(email)]
+        rescue NotImplementedError
+          nil
         end
       end
     end

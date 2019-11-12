@@ -9,14 +9,14 @@ RSpec.describe SolidusGdpr::DataExporter::PrepareFiles do
 
   let(:profile_segment) do
     instance_double('SolidusGdpr::DataSegments::ProfileSegment', export: {
-      'email' => 'jdoe@example.com',
-    })
+                      'email' => 'jdoe@example.com',
+                    })
   end
 
   let(:orders_segment) do
     instance_double('SolidusGdpr::DataSegments::OrdersSegment', export: [{
-      'number' => 'R12345678',
-    }])
+                      'number' => 'R12345678',
+                    }])
   end
 
   before do
@@ -32,16 +32,16 @@ RSpec.describe SolidusGdpr::DataExporter::PrepareFiles do
   describe '#call' do
     it 'returns the segment names and files to include in the export' do
       expect(prepare_files.call).to eq([
-        %i[profile orders],
-        {
-          'profile.json' => {
-            'email' => 'jdoe@example.com',
-          }.to_json,
-          'orders.json' => [{
-            'number' => 'R12345678',
-          }].to_json,
-        },
-      ])
+                                         %i[profile orders],
+                                         {
+                                           'profile.json' => {
+                                             'email' => 'jdoe@example.com',
+                                           }.to_json,
+                                           'orders.json' => [{
+                                             'number' => 'R12345678',
+                                           }].to_json,
+                                         },
+                                       ])
     end
   end
 end

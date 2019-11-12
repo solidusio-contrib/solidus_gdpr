@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SerializerHelpers
   def prepare_for_snapshot(serializer)
     nullify_values(serializer.as_json).to_json
