@@ -55,7 +55,7 @@ describe 'GDPR request actions', type: :feature, js: true do
     end
 
     it 'serves the request' do
-      page.accept_alert 'Are you sure?' do
+      page.accept_confirm 'Are you sure?' do
         find('.delete-request').click
       end
 
