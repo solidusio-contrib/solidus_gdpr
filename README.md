@@ -217,50 +217,13 @@ add this `require` statement to your `spec_helper`:
 require 'solidus_gdpr/factories'
 ```
 
-## Releasing a new version
+Releasing
+---------
 
-### 1. Bump the gem version and push to RubyGems
+Your new extension version can be released using `gem-release` like this:
 
-We use [gem-release](https://github.com/svenfuchs/gem-release) to release this extension.
-
-Assuming that:
-
-- you are on the `master` branch;
-- you are working on a fork of this extension;
-- `upstream` is the main remote and you have write access to it;
-
-you can simply run:
-
-```console
-$ gem bump --version minor --tag --release
-```
-
-This command will:
-
-- bump the gem version to the next minor (changing the `version.rb` file);
-- commit the change and push it to the upstream's `master`;
-- create a Git tag;
-- push the tag to the upstream;
-- release the new version on RubyGems.
-
-Or, you can run these commands individually:
-
-```console
-$ gem bump --version minor
-$ gem tag
-$ gem release
-```
-
-### 2. Publish the updated changelog
-
-After the release is done we can generate the updated changelog using
-[github-changelog-generator](https://github.com/github-changelog-generator/github-changelog-generator)
-by running the following command:
-
-```console
-$ bundle exec github_changelog_generator solidusio/solidus_auth_devise --token YOUR_GITHUB_TOKEN
-$ git commit -am 'Update changelog'
-$ git push upstream master
+```shell
+bundle exec gem bump -v VERSION --tag --push --remote upstream && gem release
 ```
 
 ## License
