@@ -7,9 +7,9 @@ module SolidusGdpr
       def as_json(*)
         return unless object
 
-        {
-          firstname: object.firstname,
-          lastname: object.lastname,
+        {}
+        .merge(name_attributes)
+        .merge({
           address1: object.address1,
           address2: object.address2,
           city: object.city,
@@ -31,7 +31,22 @@ module SolidusGdpr
           },
           created_at: object.created_at,
           updated_at: object.updated_at,
-        }
+        })
+      end
+
+      private
+
+      def name_attributes
+        if ::Spree::Config.has_preference?(:use_combined_first_and_last_name_in_address) && ::Spree::Config.use_combined_first_and_last_name_in_address
+          {
+            name: object.name
+          }
+        else
+          {
+            firstname: object.firstname,
+            lastname: object.lastname
+          }
+        end
       end
     end
   end

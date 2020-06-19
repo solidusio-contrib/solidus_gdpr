@@ -17,3 +17,13 @@ end
 RSpec.configure do |config|
   config.include SerializerHelpers
 end
+
+RSpec::Matchers.define :match_snapshot do |snapshot_name|
+  match do |actual|
+    filename = "#{snapshot_name}.snap"
+    snap_path = SolidusGdpr::Engine.root.join('spec/snapshots', filename)
+    return false unless File.exist?(snap_path)
+
+    actual.to_s == File.read(snap_path).to_s.chomp
+  end
+end
