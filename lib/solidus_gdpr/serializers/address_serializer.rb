@@ -37,7 +37,7 @@ module SolidusGdpr
       private
 
       def name_attributes
-        if ::Spree::Config.has_preference?(:use_combined_first_and_last_name_in_address) && ::Spree::Config.use_combined_first_and_last_name_in_address
+        if SolidusSupport.combined_first_and_last_name_in_address?
           {
             name: object.name
           }
