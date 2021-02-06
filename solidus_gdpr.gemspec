@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
 
   if s.respond_to?(:metadata)
     s.metadata["homepage_uri"] = s.homepage if s.homepage
-    s.metadata["source_code_uri"] = s.homepage if s.homepage
+    s.metadata["source_code_uri"] = "https://github.com/solidusio-contrib/solidus_gdpr"
     s.metadata["changelog_uri"] = 'https://github.com/solidusio-contrib/solidus_gdpr/blob/master/CHANGELOG.md'
   end
 
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rubyzip', ['>= 1.2', '< 3.0']
   s.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
-  s.add_dependency 'solidus_support', '~> 0.5'
+  s.add_dependency 'solidus_support', '~> 0.8'
 
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'sass-rails'
