@@ -196,8 +196,10 @@ When a request is created or served, the `after_create` and `after_serve` hooks 
 
 You can use these hooks in two ways:
 
-- If your application uses Solidus >= 2.9, you can use the `Spree::Event` class, here is the [documentation](https://guides.solidus.io/developers/events/overview.html). The emitted events are: `gdpr_request_created` and `gdpr_request_served`.
-- If your application uses Solidus < 2.9, you can simply override the methods using decorators.
+- If your application uses Solidus >= 3.2, you can use the `Spree::Bus` class.
+- If your application uses Solidus <= 3.2 (and >= 2.9), you can use the `Spree::Event` class, here is the [documentation](https://guides.solidus.io/developers/events/overview.html).
+
+In both cases, the emitted events are: `gdpr_request_created` and `gdpr_request_served`.
 
 ## Testing
 

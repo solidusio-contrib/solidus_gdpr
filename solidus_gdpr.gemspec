@@ -32,8 +32,8 @@ Gem::Specification.new do |s|
 
 
   s.add_dependency 'rubyzip', ['>= 1.2', '< 3.0']
-  s.add_dependency 'solidus_core', ['>= 2.0.0', '< 3']
-  s.add_dependency 'solidus_support', '~> 0.8'
+  s.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
+  s.add_dependency 'solidus_support', '~> 0.9'
 
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'sass-rails'
