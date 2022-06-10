@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'Sidebar', type: :feature, js: true do
+describe 'Sidebar', type: :feature do
   include Warden::Test::Helpers
 
   let(:admin_user) { create(:admin_user) }

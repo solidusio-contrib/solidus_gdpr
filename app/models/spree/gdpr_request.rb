@@ -44,15 +44,11 @@ module Spree
     private
 
     def after_create
-      Spree::Event.fire 'gdpr_request_created' if defined? Spree::Event
-
-      # otherwise noop, overwrite me in your app
+      SolidusSupport::LegacyEventCompat::Bus.publish :'gdpr_request_created'
     end
 
     def after_serve
-      Spree::Event.fire 'gdpr_request_served' if defined? Spree::Event
-
-      # otherwise noop, overwrite me in your app
+      SolidusSupport::LegacyEventCompat::Bus.publish :'gdpr_request_served'
     end
   end
 end
