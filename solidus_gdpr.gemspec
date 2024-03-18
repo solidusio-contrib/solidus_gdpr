@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   if s.respond_to?(:metadata)
     s.metadata["homepage_uri"] = s.homepage if s.homepage
     s.metadata["source_code_uri"] = "https://github.com/solidusio-contrib/solidus_gdpr"
-    s.metadata["changelog_uri"] = 'https://github.com/solidusio-contrib/solidus_gdpr/blob/master/CHANGELOG.md'
+    s.metadata["changelog_uri"] = 'https://github.com/solidusio-contrib/solidus_gdpr/blob/main/CHANGELOG.md'
   end
 
   s.required_ruby_version = '>= 2.4'
